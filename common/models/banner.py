@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 from common.models import BaseModel
@@ -6,7 +7,8 @@ from common.models import BaseModel
 class Banner(BaseModel):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to='banner/images')
+    content = RichTextUploadingField(null=True)
+    image = models.ImageField(upload_to="banner/images")
     position = models.PositiveSmallIntegerField(default=1)
     is_active = models.BooleanField(default=False)
 
@@ -14,4 +16,4 @@ class Banner(BaseModel):
         return self.title
 
     class Meta:
-        verbose_name_plural = 'Banner'
+        verbose_name_plural = "Banner"

@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.db.models import Q
+
 
 UserModel = get_user_model()
 
@@ -10,16 +12,10 @@ class CustomModelBackend(ModelBackend):
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        email = kwargs.get("email")
-        if username is None:
-            username = email
         if username is None or password is None:
             return
         try:
-            if email:
-                user = UserModel.objects.get(email=username)
-            else:
-                user = UserModel.objects.get(username=username)
+            user = UserModel.objects.get(Q(email=username) | Q(username=username))
         except UserModel.DoesNotExist:
             UserModel().set_password(password)
         else:

@@ -7,13 +7,8 @@ from common.models import Blog
 @pytest.mark.django_db
 class TestApplicationFormView:
     def test_create_application_form1(self, client):
-        url = reverse('common:application-form')
-        data = {
-            'course_id': 1,
-            'name': 'John Doe',
-            'email': 'johndoe@example.com',
-            'is_answer': False
-        }
+        url = reverse("common:application-form")
+        data = {"course_id": 1, "name": "John Doe", "email": "johndoe@example.com", "is_answer": False}
 
         response = client.post(url, data=data)
         assert response.status_code == 201

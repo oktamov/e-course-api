@@ -13,7 +13,7 @@ class Facebook:
         """
         try:
             graph = facebook.GraphAPI(access_token=auth_token)
-            profile = graph.request('/me?fields=name,email')
-            return profile
+            profile = graph.request("/me?fields=name,email")
+            return profile  # noqa
         except:  # noqa
             return "The token is invalid or expired."

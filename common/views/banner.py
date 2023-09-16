@@ -1,9 +1,12 @@
-from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from common.models import Banner
-from common.serializers import BannerListSerializers
+from common.serializers import BannerSerializer
 
 
-class BannerListApiView(generics.ListAPIView):
-    queryset = Banner.objects.order_by("position")
-    serializer_class = BannerListSerializers
+class BannerApiView(APIView):
+    def get(self, request, *args, **kwargs):
+        banners = Banner.objects.order_by("position").first()
+        serializer = BannerSerializer(banners, context={"request": request})
+        return Response(serializer.data)

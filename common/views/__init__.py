@@ -1,7 +1,8 @@
-from .category_views import *
-from .about_us import *
-from .contact import *
-from .application_from_views import *
-from .socialmedia import *
-from .blog import *
-from .banner import *
+from .about_us import *  # noqa
+from .application_from_views import *  # noqa
+from .banner import *  # noqa
+from .blog import *  # noqa
+from .contact import *  # noqa
+from .socialmedia import *  # noqa
+from .testimonial import *  # noqa
+from .board import *  # noqa

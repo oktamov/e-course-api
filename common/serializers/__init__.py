@@ -1,7 +1,7 @@
-from .application_form import *
-from .category import *
-from .about_serializers import *
-from .contact_serializers import *
-from .socialmedia_serializers import *
-from .banner import *
-from .blog_serializers import *
+from .about_serializers import *  # noqa
+from .application_form import *  # noqa
+from .banner import *  # noqa
+from .blog_serializers import *  # noqa
+from .contact_serializers import *  # noqa
+from .socialmedia_serializers import *  # noqa
+from .board import * # noqa

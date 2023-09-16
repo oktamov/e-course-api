@@ -14,20 +14,9 @@ class CourseResource(resources.ModelResource):
     discount = Field(attribute="discount", column_name="Chegirma")
     level = Field(attribute="level", column_name="Daraja")
     author = Field(
-        attribute="author",
-        column_name="Muallif",
-        widget=ForeignKeyWidget(User, field='full_name'),
-        readonly=True
+        attribute="author", column_name="Muallif", widget=ForeignKeyWidget(User, field="full_name"), readonly=True
     )
 
     class Meta:
         model = Course
-        fields = [
-            "id",
-            "name",
-            "desc",
-            "price",
-            "discount",
-            "level",
-            "author"
-        ]
+        fields = ["id", "name", "desc", "price", "discount", "level", "author"]

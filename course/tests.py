@@ -1,8 +1,9 @@
-from django.test import TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
-from django.test import Client
-from course.models import CourseApply, Course
+
+from course.models import Course, CourseApply
 from users.models import User
+
 
 client = Client()
 
@@ -15,18 +16,9 @@ class TestCourseApply(TestCase):
     def setUp(self) -> None:
         self.course = Course.objects.create()
         self.user = User.objects.create()
-        self.course_apply = CourseApply.objects.create(
-            status="New status",
-            course=self.course,
-            user=self.user
+        self.course_apply = CourseApply.objects.create(status="New status", course=self.course, user=self.user)
 
-        )
-
-    new_course = {
-        "status": "new stats",
-        "course": "new course",
-        "user": "new users"
-    }
+    new_course = {"status": "new stats", "course": "new course", "user": "new users"}
 
     def test_course_apply_create(self):
         url = reverse("course_apply")
@@ -47,11 +39,7 @@ class TestCourseApply(TestCase):
 
     def test_product_update(self):
         url = reverse("course_apply_detail", kwargs={"slug": self.course_apply.slug})
-        data = {
-            "status": "string",
-            "course": self.course.id,
-            "user": self.user.id
-        }
+        data = {"status": "string", "course": self.course.id, "user": self.user.id}
         response = client.put(url, data=data, content_type="application/json")
 
         self.assertEqual(response.status_code, 200)

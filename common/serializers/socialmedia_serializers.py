@@ -8,4 +8,4 @@ class SocialMediaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SocialMedia
-        fields = ['id', 'name', 'type', 'urls']
+        fields = ["id", "name", "type", "urls"]

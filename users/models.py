@@ -7,20 +7,21 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .managers import CustomUserManager
 from .utils import phone_validator
 
-AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google', 'email': 'email'}
+
+AUTH_PROVIDERS = {"facebook": "facebook", "google": "google", "email": "email"}
 
 
 class User(AbstractUser):
     class UserTypes(models.TextChoices):
-        STUDENT = 'student'
-        TEACHER = 'teacher'
-        SUPERVISOR = 'supervisor'
+        STUDENT = "student"
+        TEACHER = "teacher"
+        SUPERVISOR = "supervisor"
 
-    username = models.CharField(max_length=32, unique=True)
+    username = models.CharField(max_length=32, unique=True, null=True)
     email = models.EmailField(unique=True, null=True)
     phone = models.CharField(max_length=15, unique=True, null=True, validators=[phone_validator])
     job = models.CharField(max_length=129, null=True)
-    profile_picture = models.ImageField(upload_to='profile_picture/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to="profile_picture/", null=True, blank=True)
     address = models.CharField(max_length=256, null=True)
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True, blank=True)
@@ -31,11 +32,11 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.email
+        return self.full_name
 
     def save(self, *args, **kwargs):
         if self.is_superuser:
-            self.type = 'admin'
+            self.type = "admin"
         super(User, self).save(*args, **kwargs)
 
     @property
@@ -45,10 +46,7 @@ class User(AbstractUser):
     @property
     def tokens(self):
         refresh = RefreshToken.for_user(self)
-        return {
-            "refresh": str(refresh),
-            "access": str(refresh.access_token)
-        }
+        return {"refresh": str(refresh), "access": str(refresh.access_token)}
 
 
 class SocialAccount(models.Model):

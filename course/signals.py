@@ -11,9 +11,4 @@ from course.serializers import CourseSerializerForLog
 def save_course_data_to_log(sender, instance, **kwargs):  # noqa
     content_type = ContentType.objects.get_for_model(Course)
     old_data = CourseSerializerForLog(instance).data
-    Log.objects.create(
-        content_type=content_type,
-        object_id=instance.id,
-        action=Log.Actions.DELETE,
-        data=old_data
-    )
+    Log.objects.create(content_type=content_type, object_id=instance.id, action=Log.Actions.DELETE, data=old_data)

@@ -1,13 +1,16 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 from common.models import BaseModel
 
 
 class ContactUs(models.Model):
+    description = RichTextUploadingField()
     country = models.CharField(max_length=500)
     city = models.CharField(max_length=500)
     street = models.CharField(max_length=255)
-    location = models.CharField(max_length=300, null=True)
+    lat = models.FloatField(null=True)
+    lng = models.FloatField(null=True)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20, null=True)
 
@@ -15,7 +18,18 @@ class ContactUs(models.Model):
         return self.country
 
     class Meta:
-        verbose_name_plural = 'ContactUs'
+        verbose_name_plural = "ContactUs"
+
+    @property
+    def address(self):
+        return f"{self.street}, {self.city}, {self.country}"
+
+    @property
+    def location(self):
+        return {
+            "lat": self.lat,
+            "lng": self.lng,
+        }
 
 
 class ContactForm(BaseModel):
@@ -28,4 +42,4 @@ class ContactForm(BaseModel):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'ContactForm'
+        verbose_name_plural = "ContactForm"

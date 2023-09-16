@@ -1,10 +1,10 @@
-from modeltranslation.translator import translator, TranslationOptions
+from modeltranslation.translator import TranslationOptions, translator
 
 from course.models import Course
 
 
 class CourseTranslationOptions(TranslationOptions):
-    fields = ('name', 'desc')
+    fields = ("name", "desc")
 
 
 translator.register(Course, CourseTranslationOptions)

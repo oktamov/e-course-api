@@ -4,13 +4,13 @@ from django.utils.text import slugify
 
 class SocialMedia(models.Model):
     class SocialChoices(models.TextChoices):
-        FACEBOOK = 'facebook'
-        YOUTUBE = 'youtube'
-        INSTAGRAM = 'instagram'
-        WHATSAPP = 'whatsapp'
-        TELEGRAM = 'telegram'
+        FACEBOOK = "facebook"
+        YOUTUBE = "youtube"
+        INSTAGRAM = "instagram"
+        WHATSAPP = "whatsapp"
+        TELEGRAM = "telegram"
 
-    type = models.CharField(max_length=100, choices=SocialChoices.choices, default='', unique=True)
+    type = models.CharField(max_length=100, choices=SocialChoices.choices, default="", unique=True)
     name = models.CharField(max_length=100, blank=True, unique=True)
     urls = models.URLField()
 
@@ -22,4 +22,4 @@ class SocialMedia(models.Model):
         super(SocialMedia, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = 'SocialMedia'
+        verbose_name_plural = "SocialMedia"

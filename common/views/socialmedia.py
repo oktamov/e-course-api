@@ -4,7 +4,7 @@ from common.models import SocialMedia
 from common.serializers import SocialMediaSerializer
 
 
-class SocialMediaList(generics.ListCreateAPIView):
+class SocialMediaList(generics.ListAPIView):
     queryset = SocialMedia.objects.all()
     serializer_class = SocialMediaSerializer
 
